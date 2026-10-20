@@ -1,0 +1,98 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+body {
+    background-color: #f4f6fb;
+    display: flex;
+    justify-content: center;
+    color: #1a1a1a;
+    min-height: 100vh;
+}
+
+.tela {
+    width: 100%;
+    max-width: 400px; 
+    background-color: #ffffff;
+    padding: 40px 24px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Tipografia */
+.logo-texto { font-size: 16px; font-weight: 700; margin-bottom: 24px; }
+.titulo { font-size: 28px; font-weight: 800; line-height: 1.2; margin-bottom: 12px; }
+.descricao { font-size: 16px; color: #555; line-height: 1.5; margin-bottom: 30px; }
+.subtitulo-topo { font-size: 14px; color: #555; margin-bottom: 8px; text-transform: uppercase; font-weight: 600; }
+
+/* Formulários */
+.formulario { display: flex; flex-direction: column; gap: 20px; margin-bottom: 24px; }
+.grupo-input { display: flex; flex-direction: column; gap: 8px; }
+.grupo-input label { font-size: 14px; font-weight: 600; }
+.grupo-input input { padding: 16px; border: 1px solid #ddd; border-radius: 12px; font-size: 16px; background-color: #fafafa; }
+.grupo-checkbox { display: flex; align-items: center; gap: 10px; font-size: 14px; color: #555; }
+
+/* Botões e Links - AGORA EM AZUL */
+.btn-primario {
+    background-color: #2563EB; /* Azul original do Figma */
+    color: #ffffff;
+    padding: 16px;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none; 
+    display: block; 
+    margin-top: 10px;
+}
+
+a { color: #2563EB; text-decoration: none; font-weight: 600; }
+.voltar { font-size: 24px; color: #1a1a1a; margin-bottom: 24px; display: inline-block; }
+.links-rodape { display: flex; flex-direction: column; gap: 16px; margin-top: auto; }
+
+/* ========================================= */
+/* CSS EXCLUSIVO DA TELA SPLASH (A ARTE)     */
+/* ========================================= */
+.splash-fundo {
+    background-color: #f8fafc;
+    border-radius: 20px;
+    padding: 30px;
+    position: relative;
+    margin-bottom: 40px;
+}
+
+.splash-grade {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    justify-items: center;
+}
+
+.bolinha {
+    width: 25px; height: 25px;
+    background-color: #dbeafe; /* Azul clarinho */
+    border-radius: 50%;
+}
+
+.bolinha.azul-forte {
+    background-color: #2563EB; /* Azul escuro */
+}
+
+.btn-check-verde {
+    position: absolute;
+    bottom: -20px; right: -10px;
+    width: 65px; height: 65px;
+    background-color: #207A5D; /* Verde do Check */
+    color: white;
+    border-radius: 16px;
+    display: flex; justify-content: center; align-items: center;
+    font-size: 30px;
+    text-decoration: none;
+    box-shadow: 0 10px 20px rgba(32,122,93,0.3);
+}
