@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#2232b8">
+    <meta name="color-scheme" content="light">
+    <title>Gabarita</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Ícones (traço único, herdam a cor do texto) -->
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+        <symbol id="i-camera" viewBox="0 0 24 24"><path d="M4 8h3l1.6-2.2h6.8L17 8h3v11H4z"/><circle cx="12" cy="13.2" r="3.4"/></symbol>
+        <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8.5" r="3"/><path d="M3.5 19c0-3 2.5-5.5 5.5-5.5s5.5 2.5 5.5 5.5"/><path d="M16 5.8a3 3 0 0 1 0 5.4M17.5 13.8c2 .7 3.2 2.6 3.2 5.2"/></symbol>
+        <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+        <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11M7.5 10.5L12 15l4.5-4.5M5 19.5h14"/></symbol>
+        <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 15V4M7.5 8.5L12 4l4.5 4.5M5 19.5h14"/></symbol>
+        <symbol id="i-archive" viewBox="0 0 24 24"><path d="M4 7h16v4H4zM5.5 11v8h13v-8M10 14.5h4"/></symbol>
+        <symbol id="i-close" viewBox="0 0 24 24"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></symbol>
+        <symbol id="i-edit" viewBox="0 0 24 24"><path d="M4.5 19.5l.9-3.9L16 5l3 3L8.4 18.6zM14 7l3 3"/></symbol>
+        <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+        <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="M15.5 15.5L20 20"/></symbol>
+        <symbol id="i-chevron" viewBox="0 0 24 24"><path d="M9.5 6l6 6-6 6"/></symbol>
+        <symbol id="i-sheet" viewBox="0 0 24 24"><path d="M6 4h8l4 4v12H6zM14 4v4h4M9 12.5h6M9 16h6"/></symbol>
+        <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13.5 6.5L19 12l-5.5 5.5"/></symbol>
+        <symbol id="i-pencil" viewBox="0 0 24 24"><path d="M5 19l1-4 9.5-9.5 3 3L9 18zM13.5 7.5l3 3"/></symbol>
+    </svg>
+
+    <div id="splash" role="status" aria-label="Carregando o Gabarita">
+        <div class="splash-miolo">
+            <div class="splash-bolhas" aria-hidden="true">
+                <span>A</span><span>B</span><span class="marcada">C</span><span>D</span><span>E</span>
+            </div>
+            <p class="splash-nome">Gabarita</p>
+        </div>
+    </div>
+
+    <div class="app-container">
+        <header class="cabecalho">
+            <div class="cabecalho-topo">
+                <span class="logo">
+                    <svg class="logo-marca" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle class="miolo" cx="12" cy="12" r="4.6"/></svg>
+                    Gabarita
+                </span>
+                <span id="badge-status-mestre" class="badge pendente">Gabarito pendente</span>
+            </div>
+            <h1 id="titulo-exame-header" class="contexto-header" aria-label="Seleção atual"></h1>
+        </header>
+
+        <nav class="abas-nav" role="tablist" aria-label="Etapas da correção">
+            <button type="button" class="aba-btn ativa" role="tab" id="aba-mestre" aria-selected="true" aria-controls="secao-mestre" data-alvo="secao-mestre">Configurar</button>
+            <button type="button" class="aba-btn" role="tab" id="aba-turma" aria-selected="false" aria-controls="secao-turma" data-alvo="secao-turma">Turma <span id="contador-alunos" class="contador">0</span></button>
+            <button type="button" class="aba-btn" role="tab" id="aba-corrigir" aria-selected="false" aria-controls="secao-corrigir" data-alvo="secao-corrigir">Corrigir</button>
+            <button type="button" class="aba-btn" role="tab" id="aba-resultados" aria-selected="false" aria-controls="secao-resultados" data-alvo="secao-resultados">Resultados</button>
+        </nav>
+
+        <!-- CONFIGURAR -->
+        <main id="secao-mestre" class="secao ativa" role="tabpanel" aria-labelledby="aba-mestre">
+            <section class="bloco">
+                <h2>Turma</h2>
+                <div class="grupo-input">
+                    <label for="select-turma">Nome da turma</label>
+                    <select id="select-turma"></select>
+                </div>
+                <div class="linha-botoes">
+                    <button type="button" id="btn-nova-turma" class="btn-secundario btn-compacto"><svg class="ico"><use href="#i-plus"/></svg>Nova turma</button>
+                    <button type="button" id="btn-renomear-turma" class="btn-secundario btn-compacto">Renomear</button>
+                    <button type="button" id="btn-excluir-turma" class="btn-link btn-link-perigo">Excluir</button>
+                </div>
+            </section>
+
+            <section class="bloco">
+                <h2>Avaliação</h2>
+                <div class="grupo-input">
+                    <label for="select-avaliacao">Avaliação desta turma</label>
+                    <select id="select-avaliacao"></select>
+                </div>
+                <div class="linha-botoes">
+                    <button type="button" id="btn-nova-avaliacao" class="btn-secundario btn-compacto"><svg class="ico"><use href="#i-plus"/></svg>Nova avaliação</button>
+                    <button type="button" id="btn-excluir-avaliacao" class="btn-link btn-link-perigo">Excluir esta avaliação</button>
+                </div>
+
+                <div class="linha-config espaco-topo">
+                    <div class="grupo-input flex-maior">
+                        <label for="input-titulo-prova">Nome</label>
+                        <input type="text" id="input-titulo-prova" maxlength="50">
+                    </div>
+                    <div class="grupo-input flex-menor">
+                        <label for="input-qtd-questoes">Questões</label>
+                        <input type="number" id="input-qtd-questoes" min="1" max="60" value="10" inputmode="numeric">
+                    </div>
+                </div>
+                <div class="barra-info-peso">
+                    <span id="info-regra-contagem"></span>
+                    <button type="button" id="btn-aplicar-qtd" class="btn-pequeno">Aplicar</button>
+                </div>
+            </section>
+
+            <section class="bloco">
+                <h2>Áreas</h2>
+                <p class="texto-suave">Se a avaliação reúne várias matérias, divida as questões por área. O resultado de cada aluno e da turma é calculado por área.</p>
+                <div id="lista-areas" class="lista-areas"></div>
+                <p id="erro-areas" class="mensagem-erro oculto" role="alert"></p>
+                <div class="linha-botoes">
+                    <button type="button" id="btn-add-area" class="btn-secundario btn-compacto"><svg class="ico"><use href="#i-plus"/></svg>Área</button>
+                    <button type="button" id="btn-modelo-goias" class="btn-secundario btn-compacto">Usar Biologia, Física e Química (40)</button>
+                </div>
+                <button type="button" id="btn-salvar-areas" class="btn-primario espaco-topo">Salvar áreas</button>
+            </section>
+
+            <section class="bloco">
+                <div class="topo-bloco">
+                    <h2>Gabarito oficial</h2>
+                    <span id="progresso-preenchimento" class="texto-suave">0 de 10 questões preenchidas</span>
+                </div>
+
+                <div class="segmentado" role="group" aria-label="Como cadastrar o gabarito">
+                    <button type="button" id="btn-modo-manual" class="btn-modo ativo" aria-pressed="true"><svg class="ico"><use href="#i-pencil"/></svg>Manual</button>
+                    <button type="button" id="btn-modo-camera" class="btn-modo" aria-pressed="false"><svg class="ico"><use href="#i-camera"/></svg>Pela câmera</button>
+                </div>
+
+                <div id="gab-manual">
+                    <div id="grade-mestre" class="grade-questoes"></div>
+                    <button type="button" id="btn-salvar-mestre" class="btn-primario">Conferir gabarito</button>
+                </div>
+
+                <div id="gab-camera" class="oculto">
+                    <p id="dica-gab-camera" class="texto-suave">Fotografe o cartão-resposta mestre (o preenchido com o gabarito oficial), de cima, com as duas tabelas visíveis e boa luz. Você confere tudo antes de salvar.</p>
+                    <label for="input-foto-gabarito" id="btn-foto-gabarito" class="btn-primario btn-rotulo" tabindex="0" role="button"><svg class="ico"><use href="#i-camera"/></svg>Fotografar cartão mestre</label>
+                    <input type="file" id="input-foto-gabarito" accept="image/*" capture="environment" class="oculto-visual">
+                    <p id="aviso-gab-camera" class="aviso-leitura oculto" role="status"></p>
+
+                    <div id="painel-gab-camera" class="oculto">
+                        <p id="resumo-gab-camera" class="aviso-revisar" role="status"></p>
+                        <p class="instrucao-ajuste">Toque na letra certa de cada questão. Questões em branco, com dupla marcação ou duvidosas aparecem em destaque.</p>
+                        <details id="detalhe-gab" class="detalhe">
+                            <summary>Ver a leitura sobre a foto</summary>
+                            <p class="texto-suave">Verde: lida com segurança. Laranja: tinta parcial, confira. Vermelho: em branco ou dupla marcação.</p>
+                            <div class="par-canvas">
+                                <canvas id="canvas-gab-0"></canvas>
+                                <canvas id="canvas-gab-1"></canvas>
+                            </div>
+                        </details>
+                        <div id="grade-gab-camera" class="grade-questoes"></div>
+                        <button type="button" id="btn-confirmar-gabarito" class="btn-sucesso"><svg class="ico"><use href="#i-check"/></svg>Confirmar e salvar gabarito</button>
+                        <button type="button" id="btn-descartar-gabarito" class="btn-secundario espaco-topo">Descartar esta leitura</button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="bloco proximo">
+                <h2>Próximo passo</h2>
+                <div class="linha-botoes">
+                    <button type="button" id="btn-ir-turma" class="btn-secundario"><svg class="ico"><use href="#i-users"/></svg>Cadastrar alunos</button>
+                    <button type="button" id="btn-ir-corrigir" class="btn-primario">Corrigir<svg class="ico"><use href="#i-arrow"/></svg></button>
+                </div>
+                <p id="info-proximo" class="texto-suave espaco-topo"></p>
+            </section>
+        </main>
+
+        <!-- TURMA (alunos) -->
+        <section id="secao-turma" class="secao" role="tabpanel" aria-labelledby="aba-turma">
+            <section class="bloco">
+                <div class="topo-bloco"><h2>Alunos da turma</h2></div>
+                <div class="grupo-input">
+                    <label for="textarea-alunos">Adicionar alunos, um por linha. Use "nº - nome" para definir o número de chamada.</label>
+                    <textarea id="textarea-alunos" rows="3" placeholder="01 - Ana Souza&#10;02 - Bruno Lima"></textarea>
+                </div>
+                <button type="button" id="btn-add-alunos" class="btn-secundario espaco-topo"><svg class="ico"><use href="#i-plus"/></svg>Adicionar à turma</button>
+                <ul id="lista-alunos-salvos" class="lista-notas espaco-topo"></ul>
+            </section>
+            <button type="button" id="btn-turma-corrigir" class="btn-primario">Corrigir<svg class="ico"><use href="#i-arrow"/></svg></button>
+        </section>
+
+        <!-- CORRIGIR -->
+        <section id="secao-corrigir" class="secao" role="tabpanel" aria-labelledby="aba-corrigir">
+            <section class="bloco bloco-corrigir">
+                <div class="topo-bloco">
+                    <h2>Aluno</h2>
+                    <span id="progresso-correcao" class="texto-suave"></span>
+                </div>
+
+                <div class="campo-busca">
+                    <svg class="ico"><use href="#i-search"/></svg>
+                    <input type="text" id="input-busca-aluno" placeholder="Nome ou nº de chamada" aria-label="Aluno: nome ou número de chamada" maxlength="60" autocomplete="off" inputmode="search">
+                </div>
+                <ul id="lista-busca-aluno" class="lista-busca oculto"></ul>
+                <div id="aluno-selecionado-info" class="aluno-ativo" role="status"></div>
+
+                <label for="input-foto" id="btn-foto" class="btn-primario btn-grande btn-rotulo" tabindex="0" role="button"><svg class="ico"><use href="#i-camera"/></svg>Fotografar cartão</label>
+                <input type="file" id="input-foto" accept="image/*" capture="environment" class="oculto-visual">
+                <p id="dica-foto" class="texto-suave dica">Fotografe o cartão inteiro, de cima, com as duas tabelas visíveis e boa luz.</p>
+                <button type="button" id="btn-manual" class="btn-link">Marcar as respostas à mão</button>
+
+                <p id="aviso-leitura" class="aviso-leitura oculto" role="status"></p>
+                <button type="button" id="btn-cantos-manual" class="btn-link oculto">Marcar os cantos da tabela manualmente</button>
+
+                <div id="painel-cantos" class="painel-cantos oculto">
+                    <p id="texto-cantos"></p>
+                    <canvas id="canvas-cantos" aria-label="Foto do cartão para marcar os cantos"></canvas>
+                    <div class="linha-botoes">
+                        <button type="button" id="btn-refazer-cantos" class="btn-secundario btn-compacto">Refazer cantos</button>
+                        <button type="button" id="btn-fechar-cantos" class="btn-link">Cancelar</button>
+                    </div>
+                </div>
+            </section>
+
+            <div id="painel-conferencia" class="painel-resultado oculto">
+                <div class="cabecalho-nota">
+                    <div>
+                        <span class="rotulo-pequeno">Aluno</span>
+                        <h3 id="res-nome-aluno">-</h3>
+                    </div>
+                    <div class="placar-nota">
+                        <span class="rotulo-pequeno">Acertos</span>
+                        <strong id="res-acertos-valor">0 / 10</strong>
+                    </div>
+                </div>
+
+                <div class="placar-detalhado">
+                    <span class="pill acerto" id="pill-acertos">0 acertos</span>
+                    <span class="pill erro" id="pill-erros">0 erros</span>
+                    <span class="pill branco" id="pill-brancos">0 em branco</span>
+                    <span class="pill rasura" id="pill-rasuras">0 rasuras</span>
+                </div>
+                <ul id="lista-res-areas" class="lista-res-areas"></ul>
+
+                <p id="contador-revisar" class="aviso-revisar oculto" role="status"></p>
+                <p class="instrucao-ajuste">
+                    Toque na letra marcada pelo aluno; toque de novo para deixar em branco.
+                    Use <strong>!</strong> para rasura ou dupla marcação (a questão não pontua).
+                </p>
+
+                <details id="detalhe-leitura" class="detalhe oculto">
+                    <summary>Ver a leitura sobre a foto</summary>
+                    <p class="texto-suave">Verde: lida com segurança. Laranja: tinta parcial, confira. Vermelho: em branco ou dupla marcação.</p>
+                    <div class="par-canvas">
+                        <canvas id="canvas-tab-0"></canvas>
+                        <canvas id="canvas-tab-1"></canvas>
+                    </div>
+                </details>
+
+                <div id="grade-aluno" class="grade-questoes"></div>
+                <div id="log-divergencias" class="caixa-divergencias"></div>
+
+                <button type="button" id="btn-confirmar-nota" class="btn-sucesso"><svg class="ico"><use href="#i-check"/></svg>Salvar e próximo aluno</button>
+                <button type="button" id="btn-cancelar-correcao" class="btn-secundario espaco-topo">Descartar esta correção</button>
+            </div>
+        </section>
+
+        <!-- RESULTADOS -->
+        <section id="secao-resultados" class="secao" role="tabpanel" aria-labelledby="aba-resultados">
+            <div class="cards-metricas">
+                <div class="metrica"><strong id="metrica-corrigidos">0</strong><span>Corrigidos</span></div>
+                <div class="metrica"><strong id="metrica-media">0,0</strong><span>Média de acertos</span></div>
+                <div class="metrica"><strong id="metrica-questoes">10</strong><span>Questões</span></div>
+            </div>
+
+            <section class="bloco" id="card-stats-areas">
+                <div class="topo-bloco"><h2>Desempenho por área</h2></div>
+                <ul id="lista-stats-areas" class="lista-stats"></ul>
+            </section>
+
+            <section class="bloco">
+                <div class="topo-bloco"><h2>Resultados por aluno</h2></div>
+                <ul id="lista-resultados" class="lista-notas"></ul>
+            </section>
+
+            <details class="bloco detalhe-bloco">
+                <summary>Acerto por questão</summary>
+                <ul id="lista-stats-questoes" class="lista-stats"></ul>
+            </details>
+
+            <section class="bloco">
+                <div class="topo-bloco"><h2>Dados</h2></div>
+                <div class="linha-botoes coluna">
+                    <button type="button" id="btn-exportar-csv" class="btn-secundario"><svg class="ico"><use href="#i-sheet"/></svg>Exportar resultados (CSV)</button>
+                    <button type="button" id="btn-exportar-backup" class="btn-secundario"><svg class="ico"><use href="#i-download"/></svg>Salvar backup completo</button>
+                    <label for="input-importar-backup" class="btn-secundario btn-rotulo" tabindex="0" role="button" id="btn-importar-backup"><svg class="ico"><use href="#i-upload"/></svg>Restaurar backup</label>
+                    <input type="file" id="input-importar-backup" accept="application/json,.json" class="oculto-visual">
+                </div>
+                <p class="texto-suave espaco-topo">Os dados ficam só neste aparelho. Salve um backup de vez em quando, principalmente antes de limpar o navegador.</p>
+            </section>
+
+            <button type="button" id="btn-limpar-dados" class="btn-perigo">Apagar todos os dados deste aparelho</button>
+        </section>
+    </div>
+
+    <div id="toast" class="toast oculto" role="status" aria-live="polite"></div>
+
+    <script src="dominio.js"></script>
+    <script src="leitor.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
